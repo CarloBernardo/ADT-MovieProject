@@ -14,7 +14,7 @@ function LoginPage() {
   const userInputDebounce = useDebounce({ email, password }, 2000);
   const [debounceState, setDebounceState] = useState(false);
   const [status, setStatus] = useState('idle');
-
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleShowPassword = useCallback(() => {
@@ -43,21 +43,22 @@ function LoginPage() {
   const handleLogin = async () => {
     const data = { email, password };
     setStatus('loading');
-    console.log(data);
 
     await axios({
       method: 'post',
-      url: '/user/login',
+      url: '/admin/login',
       data,
       headers: { 'Access-Control-Allow-Origin': '*' },
     })
       .then((res) => {
         console.log(res);
+        //store response access token to localstorage
         localStorage.setItem('accessToken', res.data.access_token);
         navigate('/main/movies');
         setStatus('idle');
       })
       .catch((e) => {
+        setError(e.response.data.message);
         console.log(e);
         setStatus('idle');
         // alert(e.response.data.message);
@@ -69,13 +70,14 @@ function LoginPage() {
   }, [userInputDebounce]);
 
   return (
-    <div className='Login'>
-      <div className='main-container'>
-        <h3>Login</h3>
+      <div className='login-page'>
         <form>
           <div className='form-container'>
+          <h2 className="form-title">MovieDB</h2>
+          <h2 className="form-title">Welcome Back!</h2>
+            {error && <span className='login errors'>{error}</span>}
             <div>
-              <div className='form-group'>
+              <div className='input-group'>
                 <label>E-mail:</label>
                 <input
                   type='text'
@@ -85,11 +87,11 @@ function LoginPage() {
                 />
               </div>
               {debounceState && isFieldsDirty && email == '' && (
-                <span className='errors'>This field is required</span>
+                <span className='input-field'>This field is required</span>
               )}
             </div>
             <div>
-              <div className='form-group'>
+              <div className='input-group'>
                 <label>Password:</label>
                 <input
                   type={isShowPassword ? 'text' : 'password'}
@@ -99,10 +101,10 @@ function LoginPage() {
                 />
               </div>
               {debounceState && isFieldsDirty && password == '' && (
-                <span className='errors'>This field is required</span>
+                <span className='input-field'>This field is required</span>
               )}
             </div>
-            <div className='show-password' onClick={handleShowPassword}>
+            <div className='show-password-btn' onClick={handleShowPassword}>
               {isShowPassword ? 'Hide' : 'Show'} Password
             </div>
 
@@ -115,10 +117,7 @@ function LoginPage() {
                     return;
                   }
                   if (email && password) {
-                    handleLogin({
-                      type: 'login',
-                      user: { email, password },
-                    });
+                    handleLogin();
                   } else {
                     setIsFieldsDirty(true);
                     if (email == '') {
@@ -142,9 +141,8 @@ function LoginPage() {
           </div>
         </form>
       </div>
-    </div>
+    
   );
 }
-
 
 export default LoginPage;
