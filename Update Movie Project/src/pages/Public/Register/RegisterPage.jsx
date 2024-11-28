@@ -102,10 +102,10 @@ function Register() {
   return (
     <div className='Register'>
       <div className='main-container'>
-        <h3>Register</h3>
         <form>
           <div className='form-container'>
             <div>
+            <h1>Register</h1>
             <div>
               <div className='form-group'>
                 <label>First Name:</label>
