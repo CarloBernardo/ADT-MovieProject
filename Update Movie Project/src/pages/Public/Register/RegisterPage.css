@@ -26,7 +26,8 @@
   
   .form-group {
     display: flex;
-    margin-bottom: 10px;
+    flex-direction: column;
+    margin-bottom: 3px;
   }
   
   .form-group label {

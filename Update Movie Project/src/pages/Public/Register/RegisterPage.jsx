@@ -38,34 +38,25 @@ function Register() {
     switch (type) {
       case 'email':
         setEmail(event.target.value);
-
         break;
-
       case 'password':
         setPassword(event.target.value);
         break;
-      
       case 'firstName':
         setFirstName(event.target.value);
         break;
-
       case 'middleName':
         setMiddleName(event.target.value);
         break;
-
       case 'lastName':
         setLastName(event.target.value);
         break;
-
-
       case 'contactNo':
         setcontactNo(event.target.value);
         break;
-
       case 'role':
         setRole(event.target.value);
         break;
-
       default:
         break;
     }
@@ -99,10 +90,19 @@ function Register() {
     setDebounceState(true);
   }, [userInputDebounce]);
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevent the default form submission
+      if (status === 'idle') {
+        handleRegister();
+      }
+    }
+  };
+
   return (
     <div className='Register'>
       <div className='main-container'>
-        <form>
+        <form onKeyDown={handleKeyDown}>
           <div className='form-container'>
             <div>
             <h1>Register</h1>
@@ -116,9 +116,7 @@ function Register() {
                   onChange={(e) => handleOnChange(e, 'firstName')}
                 />
               </div>
-              {debounceState && isFieldsDirty && firstName == '' && (
-                <span className='errors'>This field is required</span>
-              )}
+              {debounceState && isFieldsDirty && firstName == ''}
             </div>
             <div>
               <div className='form-group'>
@@ -130,9 +128,7 @@ function Register() {
                   onChange={(e) => handleOnChange(e, 'middleName')}
                 />
               </div>
-              {debounceState && isFieldsDirty && middleName == '' && (
-                <span className='errors'>This field is required</span>
-              )}
+              {debounceState && isFieldsDirty && middleName == ''}
             </div>
             <div>
               <div className='form-group'>
@@ -144,9 +140,7 @@ function Register() {
                   onChange={(e) => handleOnChange(e, 'lastName')}
                 />
               </div>
-              {debounceState && isFieldsDirty && lastName == '' && (
-                <span className='errors'>This field is required</span>
-              )}
+              {debounceState && isFieldsDirty && lastName == ''}
             </div>
             <div>
               <div className='form-group'>
@@ -158,9 +152,7 @@ function Register() {
                   onChange={(e) => handleOnChange(e, 'contactNo')}
                 />
               </div>
-              {debounceState && isFieldsDirty && contactNo == '' && (
-                <span className='errors'>This field is required</span>
-              )}
+              {debounceState && isFieldsDirty && contactNo == ''}
             </div>
             <div>
               <div className='form-group'>
@@ -172,9 +164,7 @@ function Register() {
                   onChange={(e) => handleOnChange(e, 'role')}
                 />
               </div>
-              {debounceState && isFieldsDirty && role == '' && (
-                <span className='errors'>This field is required</span>
-              )}
+              {debounceState && isFieldsDirty && role == ''}
             </div>
               <div className='form-group'>
                 <label>Email:</label>
@@ -185,9 +175,7 @@ function Register() {
                   onChange={(e) => handleOnChange(e, 'email')}
                 />
               </div>
-              {debounceState && isFieldsDirty && email == '' && (
-                <span className='errors'>This field is required</span>
-              )}
+              {debounceState && isFieldsDirty && email == ''}
               </div>
             <div>
               <div className='form-group'>
@@ -199,36 +187,40 @@ function Register() {
                   onChange={(e) => handleOnChange(e, 'password')}
                 />
               </div>
-              {debounceState && isFieldsDirty && password == '' && (
-                <span className='errors'>This field is required</span>
-              )}
+              {debounceState && isFieldsDirty && password == ''}
             </div>
             <div className='show-password' onClick={handleShowPassword}>
               {isShowPassword ? 'Hide' : 'Show'} Password
             </div>
 
             <div className='submit-container'>
-              <button
-                type='button'
+            <button
+                type="button"
                 disabled={status === 'loading'}
                 onClick={() => {
-                  if (status === 'loading') {
-                    return;
-                  }
-                  if (email && password) {
-                    handleRegister({
-                      type: 'register',
-                      user: { email, password, firstName,middleName,lastName,contactNo,role },
-                    });
-                  } else {
-                    setIsFieldsDirty(true);
-                    if (email == '') {
-                      emailRef.current.focus();
-                    }
+                  if (status === 'loading') return;
 
-                    if (password == '') {
-                      passwordRef.current.focus();
-                    }
+                  
+                  setIsFieldsDirty(true);
+
+                  
+                  if (!email) {
+                    emailRef.current.focus();
+                  } else if (!password) {
+                    passwordRef.current.focus();
+                  } else if (!firstName) {
+                    firstNameRef.current.focus();
+                  } else if (!middleName) {
+                    middleNameRef.current.focus();
+                  } else if (!lastName) {
+                    lastNameRef.current.focus();
+                  } else if (!contactNo) {
+                    contactNoRef.current.focus();
+                  } else if (!role) {
+                    roleRef.current.focus();
+                  } else {
+                    
+                    handleRegister();
                   }
                 }}
               >
@@ -242,8 +234,10 @@ function Register() {
         </form>
       </div>
     </div>
+    
   );
 }
+
 
 
 export default Register;
