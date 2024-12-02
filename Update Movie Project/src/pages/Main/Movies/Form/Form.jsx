@@ -25,7 +25,7 @@ const Form = () => {
                 url: `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}`,
                 headers: {
                     Accept: 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZjcwNmYyZDQwMDA0ZTUwYzhmOGUwZDg4MWNjMzMzMCIsIm5iZiI6MTczMTU5ODg1NC42MjI1ODgyLCJzdWIiOiI2NzEzMzc3MjY1MDI0OGI5ZGI2MWQ3MzgiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.Z5quNuFFNmtUb_Vmo7pduOIfBzu0JKfpvmmHcJJ08ps',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9...',
                 },
             });
 
@@ -124,178 +124,162 @@ const Form = () => {
     }, [movieId]);
 
     return (
-        <div className="moviecontainer mt-5 overflow-auto movieform-container">
-    <h1>{movieId ? 'Edit ' : 'Create '} Movie</h1>
+        <div className="container mt-5">
+            <div className="card p-4 shadow">
+                <h1 className="text-center">{movieId ? 'Edit Movie' : 'Create Movie'}</h1>
 
-    {error && <p className="text-center text-danger">{error}</p>}
+                {error && <div className="alert alert-danger text-center">{error}</div>}
 
-    {movieId === undefined && (
-        <>
-            <div className="search-container">
-                <div className="movieform-group">
-                    <label>Search Movie: </label>
-                    <div className="d-flex">
-                        <input
-                            type="text"
-                            className="movieform-control me-2 search-input"
-                            onChange={(event) => {
-                                setQuery(event.target.value);
-                                setNotFound(false);
-                                setSearchedMovieList([]);
-                                setSelectedMovie(undefined);
-                                setCurrentPage(1);
-                            }}
-                            placeholder="Enter movie title"
-                        />
-                        <button
-                            type="button"
-                            className="moviebtn btn-primary search-button"
-                            onClick={() => handleSearch(1)}
-                        >
-                            Search
-                        </button>
+                {!movieId && (
+                    <>
+                        <div className="mb-4">
+                            <label htmlFor="movie-search" className="form-label">
+                                Search Movie:
+                            </label>
+                            <div className="input-group">
+                                <input
+                                    id="movie-search"
+                                    type="text"
+                                    className="form-control"
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    placeholder="Type a movie title"
+                                />
+                                <button
+                                    type="button"
+                                    className="btn btn-primary"
+                                    onClick={() => handleSearch(1)}
+                                    disabled={!query.trim()}
+                                >
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            {notfound && (
+                                <div className="alert alert-warning text-center">
+                                    Movie not found.
+                                </div>
+                            )}
+                            {isLoading && <div className="text-center">Loading...</div>}
+                            <ul className="list-group mt-3">
+                                {searchedMovieList.map((movie) => (
+                                    <li
+                                        key={movie.id}
+                                        className={`list-group-item d-flex justify-content-between align-items-center ${
+                                            selectedMovie?.id === movie.id ? 'active' : ''
+                                        }`}
+                                        onClick={() => handleSelectMovie(movie)}
+                                    >
+                                        {movie.original_title}
+                                        <span className="badge bg-primary rounded-pill">
+                                            {movie.vote_average}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </>
+                )}
+
+                <div className="row mt-4">
+                    {selectedMovie && (
+                        <div className="col-md-4 text-center">
+                            <img
+                                src={`https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`}
+                                alt={selectedMovie.title}
+                                className="img-thumbnail mb-3"
+                                style={{ maxHeight: '300px' }}
+                            />
+                        </div>
+                    )}
+
+                    <div className="col-md-8">
+                        <form>
+                            <div className="mb-3">
+                                <label htmlFor="title" className="form-label">
+                                    Title
+                                </label>
+                                <input
+                                    type="text"
+                                    id="title"
+                                    className="form-control"
+                                    value={selectedMovie?.title || ''}
+                                    disabled={!movieId}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="overview" className="form-label">
+                                    Overview
+                                </label>
+                                <textarea
+                                    id="overview"
+                                    className="form-control"
+                                    rows="4"
+                                    value={selectedMovie?.overview || ''}
+                                    disabled={!movieId}
+                                ></textarea>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="popularity" className="form-label">
+                                        Popularity
+                                    </label>
+                                    <input
+                                        type="number"
+                                        id="popularity"
+                                        className="form-control"
+                                        value={selectedMovie?.popularity || ''}
+                                        disabled={!movieId}
+                                    />
+                                </div>
+                                <div className="col-md-6 mb-3">
+                                    <label htmlFor="releaseDate" className="form-label">
+                                        Release Date
+                                    </label>
+                                    <input
+                                        type="date"
+                                        id="releaseDate"
+                                        className="form-control"
+                                        value={selectedMovie?.release_date || ''}
+                                        disabled={!movieId}
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="voteAverage" className="form-label">
+                                    Vote Average
+                                </label>
+                                <input
+                                    type="number"
+                                    id="voteAverage"
+                                    className="form-control"
+                                    value={selectedMovie?.vote_average || ''}
+                                    disabled={!movieId}
+                                />
+                            </div>
+                            <div className="d-flex justify-content-between">
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    onClick={() => navigate(-1)} // Navigate back to the previous page
+                                >
+                                    Back
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-success"
+                                    onClick={handleSave}
+                                    disabled={!selectedMovie}
+                                >
+                                    {movieId ? 'Update Movie' : 'Save Movie'}
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
-                <div className="searched-movie mt-3">
-                    {notfound ? (
-                        <p className="text-center text-white bg-danger p-2 rounded not-found-message">
-                            Movie not found
-                        </p>
-                    ) : isLoading ? (
-                        <p className="text-center">Searching...</p>
-                    ) : (
-                        searchedMovieList.map((movie) => (
-                            <p
-                                key={movie.id}
-                                className="border p-2 movie-item"
-                                onClick={() => handleSelectMovie(movie)}
-                            >
-                                {movie.original_title}
-                            </p>
-                        ))
-                    )}
-                </div>
             </div>
-
-            {totalPages > 0 && (
-                <div className="pagination-container">
-                    <button
-                        className="moviebtn btn-secondary prev-button"
-                        onClick={() => {
-                            if (currentPage > 1) {
-                                handleSearch(currentPage - 1);
-                                setCurrentPage(currentPage - 1);
-                            }
-                        }}
-                        disabled={currentPage === 1}
-                    >
-                        Previous
-                    </button>
-                    <span>Page {currentPage} of {totalPages}</span>
-                    <button
-                        className="moviebtn btn-secondary next-button"
-                        onClick={() => {
-                            if (currentPage < totalPages) {
-                                handleSearch(currentPage + 1);
-                                setCurrentPage(currentPage + 1);
-                            }
-                        }}
-                        disabled={currentPage === totalPages}
-                    >
-                        Next
-                    </button>
-                </div>
-            )}
-        </>
-    )}
-
-    <div className="row">
-        <div className="col-md-6 poster-col">
-            {selectedMovie && (
-                <img
-                    className="img-fluid poster-image mb-3"
-                    src={`https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`}
-                    alt={selectedMovie.title}
-                />
-            )}
         </div>
-
-        <div className="col-md-6 movie-details">
-            <form>
-                <div className="movieform-group">
-                    <label>Title</label>
-                    <input
-                        type="text"
-                        className="movieform-control"
-                        value={selectedMovie ? selectedMovie.title : ''}
-                        onChange={(e) => setSelectedMovie({ ...selectedMovie, title: e.target.value })}
-                        disabled={movieId === undefined}
-                    />
-                </div>
-
-                <div className="movieform-group">
-                    <label>Overview</label>
-                    <textarea
-                        className="movieform-control"
-                        rows={5}
-                        value={selectedMovie ? selectedMovie.overview : ''}
-                        onChange={(e) => setSelectedMovie({ ...selectedMovie, overview: e.target.value })}
-                        disabled={movieId === undefined}
-                    />
-                </div>
-
-                <div className="movieform-group">
-                    <label>Popularity</label>
-                    <input
-                        type="number"
-                        className="movieform-control"
-                        value={selectedMovie ? selectedMovie.popularity : ''}
-                        onChange={(e) => setSelectedMovie({ ...selectedMovie, popularity: e.target.value })}
-                        step={0.1}
-                        disabled={movieId === undefined}
-                    />
-                </div>
-
-                <div className="movieform-group">
-                    <label>Release Date</label>
-                    <input
-                        type="date"
-                        className="movieform-control"
-                        value={selectedMovie ? selectedMovie.release_date : ''}
-                        onChange={(e) => setSelectedMovie({ ...selectedMovie, release_date: e.target.value })}
-                        disabled={movieId === undefined}
-                    />
-                </div>
-
-                <div className="movieform-group">
-                    <label>Vote Average</label>
-                    <input
-                        type="number"
-                        className="movieform-control"
-                        value={selectedMovie ? selectedMovie.vote_average : ''}
-                        onChange={(e) => setSelectedMovie({ ...selectedMovie, vote_average: e.target.value })}
-                        step={0.1}
-                        disabled={movieId === undefined}
-                    />
-                </div>
-
-                <div className="movieform-group">
-                    <button
-                        type="button"
-                        className="save-button btn-success"
-                        onClick={handleSave}
-                        disabled={!selectedMovie}
-                    >
-                        {movieId ? 'Update' : 'Save'}
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
     );
 };
 

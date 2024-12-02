@@ -2,6 +2,11 @@
   display: flex;
   overflow: hidden;
   max-height: 100vh;
+  background-image: url("C:\Users\Carlo\Documents\admin-dashboard-carlo-bernardo-bsit3a\public\download (1).jpg"); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  font-family: Arial, sans-serif;
 }
 
 .Main .container {
