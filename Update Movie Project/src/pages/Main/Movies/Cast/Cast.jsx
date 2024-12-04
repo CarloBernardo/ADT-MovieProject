@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useCallback, useRef } from 'react';
-import { AuthContext } from '../../../../../context/context';
+import { AuthContext } from '../../../../context/context.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -10,7 +10,7 @@ function Casts() {
   const { auth } = useContext(AuthContext);
   const [query, setQuery] = useState('');
   const [cast, setCast] = useState([]);
-  const [castid, setCastId] = useState(undefined);
+  const [castid, setCastId] = useState(undefined); 
   const [selectedcast, setSelectedCast] = useState({})
   const searchRef = useRef();
   const [notfound, setNotFound] = useState(false);
@@ -303,7 +303,7 @@ function Casts() {
           <div className='cast-detail-box'>
             <div className='image-container-center'>
               <div className='image-container'>
-                <img
+                {/* <img
                   alt='image-cast'
                   src={selectedcast?.profile_path
                     ? `https://image.tmdb.org/t/p/original/${selectedcast.profile_path}`
@@ -312,7 +312,7 @@ function Casts() {
                       : require('../../Form/Cast/NO CAST.jpg')
                   }
                   className='img-cast'
-                />
+                /> */}
               </div>
             </div>
 

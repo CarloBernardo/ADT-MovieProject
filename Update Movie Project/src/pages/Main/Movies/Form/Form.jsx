@@ -177,7 +177,7 @@ const Form = () => {
       {movieId && selectedMovie && (
         <div className="tabs-section">
           <ul className="tabs">
-            <li onClick={() => navigate(`/main/movies/form/${movieId}/cast-and-crews`)}>Cast & Crews</li>
+            <li onClick={() => navigate(`/main/movies/form/${movieId}/cast`)}>Cast & Crews</li>
             <li onClick={() => navigate(`/main/movies/form/${movieId}/videos`)}>Videos</li>
             <li onClick={() => navigate(`/main/movies/form/${movieId}/photos`)}>Photos</li>
           </ul>

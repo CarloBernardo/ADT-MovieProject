@@ -1,6 +1,4 @@
-/* Form.css */
 
-/* General Container */
 .form-container {
   max-width: 800px;
   margin: 0 auto;
@@ -12,7 +10,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Headings */
 .form-container h1 {
   text-align: center;
   margin-bottom: 20px;
@@ -20,7 +17,6 @@
   color: #444;
 }
 
-/* Search Section */
 .search-section {
   margin-bottom: 20px;
 }
@@ -99,7 +95,7 @@
   background-color: #e7f1ff;
 }
 
-/* Movie Form */
+
 .movie-form {
   display: flex;
   flex-direction: column;
@@ -152,7 +148,7 @@ textarea {
   background-color: #218838;
 }
 
-/* Tabs Section */
+
 .tabs-section {
   margin-top: 20px;
 }

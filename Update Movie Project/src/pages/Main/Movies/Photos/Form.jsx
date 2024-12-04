@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import './Photos.css'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDebounce } from '../../../../../utils/hooks/useDebounce';
-import { AuthContext } from '../../../../../context/context';
+import { AuthContext } from '../../../../context/context.js';
 import axios from 'axios';
 
 function Form({ data, state, setState }) {

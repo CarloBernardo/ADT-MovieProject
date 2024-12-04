@@ -8,6 +8,10 @@ import Dashboard from './pages/Main/Dashboard/Dashboard';
 import Lists from './pages/Main/Movies/Lists/Lists';
 import Forms from './pages/Main/Movies/Form/Form';
 import Movies from './pages/Main/Movies/Movies';
+import Casts from './pages/Main/Movies/Cast/Cast';
+import Photos from './pages/Main/Movies/Photos/Photos';
+import Videos from './pages/Main/Movies/Videos/Videos';
+import { AuthProvider } from './context/context';
 
 const router = createBrowserRouter([
   
@@ -38,6 +42,21 @@ const router = createBrowserRouter([
           {
             path: '/main/movies/form/:movieId?',
             element: <Forms />,
+            children: [
+              {
+                path: '/main/movies/form/:movieId/cast',
+                element: <Casts />,
+              },
+              {
+                path: '/main/movies/form/:movieId/photos',
+                element: <Photos />,
+              },
+              {
+                path: '/main/movies/form/:movieId/videos',
+                element: <Videos />,
+              },
+            ],
+            
           },
         ],
       },
@@ -46,9 +65,11 @@ const router = createBrowserRouter([
 ]);
 function App() {
   return (
+    <AuthProvider>
     <div className="App">
       <RouterProvider router={router}/>
     </div>
+    </AuthProvider>
   );
 }
 
