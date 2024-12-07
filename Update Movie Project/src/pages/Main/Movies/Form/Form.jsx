@@ -17,7 +17,7 @@ const Form = () => {
       url: `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
       headers: {
         Accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTdiNmUyNGJkNWRkNjhiNmE1ZWFjZjgyNWY3NGY5ZCIsIm5iZiI6MTcyOTI5NzI5Ny4wNzMzNTEsInN1YiI6IjY2MzhlZGM0MmZhZjRkMDEzMGM2NzM3NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZIX4EF2yAKl6NwhcmhZucxSQi1rJDZiGG80tDd6_9XI', // Replace with your actual API key
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MDJhMWE0NDFlODg5ZDMxMGQzMjIxZjQ5NmFlNmE5ZSIsIm5iZiI6MTczMzI3OTkwMS4wNTYsInN1YiI6IjY3NGZjMDlkNmUxMDFkOTQ5MTFhNTE3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-BBGayo5eksW9Fsyw8rilJ6OlucfDJ2yL2TfCpAtP5Y', // Replace with your actual API key
       },
     }).then((response) => {
       setSearchedMovieList(response.data.results);
@@ -26,9 +26,11 @@ const Form = () => {
 
   const handleSelectMovie = (movie) => {
     setSelectedMovie(movie);
+    setSearchedMovieList([movie]);
   };
 
   const handleSave = () => {
+    const user = localStorage.getItem('user');
     const accessToken = localStorage.getItem('accessToken');
     if (!selectedMovie) {
       alert('Please search and select a movie.');
@@ -36,6 +38,7 @@ const Form = () => {
     }
 
     const data = {
+      userId : JSON.parse(user).userId,
       tmdbId: selectedMovie.id,
       title: selectedMovie.title,
       overview: selectedMovie.overview,
@@ -56,7 +59,7 @@ const Form = () => {
       },
     })
       .then(() => alert('Movie saved successfully!'))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error(error.message));
   };
 
   useEffect(() => {
@@ -66,6 +69,7 @@ const Form = () => {
         const tempData = {
           id: response.data.tmdbId,
           original_title: response.data.title,
+          title: response.data.title,
           overview: response.data.overview,
           popularity: response.data.popularity,
           poster_path: response.data.posterPath,
@@ -76,12 +80,12 @@ const Form = () => {
       });
     }
   }, [movieId]);
-
+ 
   return (
     <div className="form-container">
       <h1>{movieId ? 'Edit Movie' : 'Create Movie'}</h1>
 
-      {/* Search Section */}
+      
       {!movieId && (
         <div className="search-section">
           <label>Search for a Movie:</label>
@@ -97,42 +101,33 @@ const Form = () => {
           {searchedMovieList.length > 0 && (
             <div className="search-results">
               {searchedMovieList.map((movie) => (
-                <div
-                  key={movie.id}
-                  className={`search-item ${
-                    selectedMovie && selectedMovie.id === movie.id
-                      ? 'selected'
-                      : ''
-                  }`}
-                  onClick={() => handleSelectMovie(movie)}
-                >
-                  <img
-                    src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
-                    alt={movie.original_title}
-                  />
-                  <span>{movie.original_title}</span>
-                </div>
-              ))}
+              <div
+               key={movie.id}
+               className={`search-item ${
+               selectedMovie && selectedMovie.id === movie.id ? 'selected' : ''
+              } `}
+               onClick={() => handleSelectMovie(movie)}
+              >
+              <img
+               src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
+               alt={movie.original_title}
+               className="movie-poster"
+              />
+              <span>{movie.title}</span>
+              </div>
+             ))}
             </div>
           )}
         </div>
       )}
 
-      {/* Form Section */}
+      
       <form className="movie-form">
-        {selectedMovie && (
-          <div className="poster-preview">
-            <img
-              src={`https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`}
-              alt="Selected Movie Poster"
-            />
-          </div>
-        )}
         <div className="form-group">
           <label>Title</label>
           <input
             type="text"
-            value={selectedMovie?.original_title || ''}
+            value={selectedMovie?.title || ''}
             readOnly
           />
         </div>
@@ -173,13 +168,13 @@ const Form = () => {
         </button>
       </form>
 
-      {/* Tabs Section */}
+      
       {movieId && selectedMovie && (
         <div className="tabs-section">
           <ul className="tabs">
-            <li onClick={() => navigate(`/main/movies/form/${movieId}/cast`)}>Cast & Crews</li>
-            <li onClick={() => navigate(`/main/movies/form/${movieId}/videos`)}>Videos</li>
-            <li onClick={() => navigate(`/main/movies/form/${movieId}/photos`)}>Photos</li>
+            <li onClick={() => navigate(`/main/movies/form/${movieId}/cast/${selectedMovie.id}`)}>Casts</li>
+            <li onClick={() => navigate(`/main/movies/form/${movieId}/videos/${selectedMovie.id}`)}>Videos</li>
+            <li onClick={() => navigate(`/main/movies/form/${movieId}/photos/${selectedMovie.id}`)}>Photos</li>
           </ul>
           <Outlet />
         </div>

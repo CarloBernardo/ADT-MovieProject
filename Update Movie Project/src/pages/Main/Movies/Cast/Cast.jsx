@@ -15,9 +15,10 @@ function Casts() {
   const searchRef = useRef();
   const [notfound, setNotFound] = useState(false);
   const nameRef = useRef();
-  const characterNameRef = useRef()
+  const characterNameRef = useRef();
   const urlRef = useRef();
   let { movieId } = useParams();
+  let { tmdbId } = useParams();
 
   const getAll = useCallback((movie_id) => {
     axios({
@@ -34,11 +35,45 @@ function Casts() {
       .catch((error) => {
         console.error("Error fetching Casts:", error.response.data);
       });
-  }, [auth.accessToken]) // Add `auth.accessToken` as a dependency
+  }, [auth.accessToken]);
 
   useEffect(() => {
     getAll(movieId);
-  }, [movieId, getAll]); // Add `getAll` to the dependency array
+  }, [movieId, getAll]);
+
+  
+  const handleImportCast = async () => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `https://api.themoviedb.org/3/movie/${tmdbId}/credits`,
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MDJhMWE0NDFlODg5ZDMxMGQzMjIxZjQ5NmFlNmE5ZSIsIm5iZiI6MTczMzI3OTkwMS4wNTYsInN1YiI6IjY3NGZjMDlkNmUxMDFkOTQ5MTFhNTE3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-BBGayo5eksW9Fsyw8rilJ6OlucfDJ2yL2TfCpAtP5Y',
+        },
+      });
+
+      if (response.data.cast.length > 0) {
+        const importedCast = response.data.cast.map((actor) => ({
+          id: actor.id,
+          name: actor.name,
+          characterName: actor.character,
+          url: actor.profile_path
+            ? `https://image.tmdb.org/t/p/original/${actor.profile_path}`
+            : null,
+        }));
+
+        setCast(importedCast);
+        alert('Cast imported successfully!');
+      } else {
+        alert('No cast found for this movie.');
+      }
+    } catch (error) {
+      console.error("Error importing cast:", error);
+      alert('Failed to import cast. Please try again.');
+    }
+  };
+  
 
   const handleSearchPerson = useCallback(async (page = 1) => {
     setNotFound(true);
@@ -57,7 +92,7 @@ function Casts() {
         url: `https://api.themoviedb.org/3/search/person?query=${query}&include_adult=false&language=en-US&page=${page}`,
         headers: {
           accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MGY0ZjFlMmNhODQ1ZjA3NWY5MmI5ZDRlMGY3ZTEwYiIsIm5iZiI6MTcyOTkyNjY3NC40NzIwOTksInN1YiI6IjY3MTM3ODRmNjUwMjQ4YjlkYjYxZTgxMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RRJNLOg8pmgYoomiCWKtwkw74T3ZtAs7ZScqxo1bzWg'
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MDJhMWE0NDFlODg5ZDMxMGQzMjIxZjQ5NmFlNmE5ZSIsIm5iZiI6MTczMzI3OTkwMS4wNTYsInN1YiI6IjY3NGZjMDlkNmUxMDFkOTQ5MTFhNTE3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-BBGayo5eksW9Fsyw8rilJ6OlucfDJ2yL2TfCpAtP5Y'
         },
       });
 
@@ -158,7 +193,7 @@ function Casts() {
     };
 
     if (!validateFields()) {
-      return; // This is for stop if any valid is null
+      return; 
     } else {
       const isConfirm = window.confirm("Are you sure you want to update the cast?");
       if (isConfirm) {
@@ -267,6 +302,13 @@ function Casts() {
       </div>
       <div className='Search-Box'>
         <div className='parent-container'>
+        <button
+            className='import-button'
+            type='button'
+            onClick={handleImportCast}
+          >
+            Import Cast
+          </button>
           {castid === undefined && (
             <>
               <div className='search-box-btn'>
@@ -303,16 +345,16 @@ function Casts() {
           <div className='cast-detail-box'>
             <div className='image-container-center'>
               <div className='image-container'>
-                {/* <img
+                { <img
                   alt='image-cast'
                   src={selectedcast?.profile_path
                     ? `https://image.tmdb.org/t/p/original/${selectedcast.profile_path}`
                     : selectedcast?.url
                       ? selectedcast.url
-                      : require('../../Form/Cast/NO CAST.jpg')
+                      : require('../Cast/NO CAST.jpg')
                   }
                   className='img-cast'
-                /> */}
+                /> }
               </div>
             </div>
 

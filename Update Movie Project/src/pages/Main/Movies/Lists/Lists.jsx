@@ -5,11 +5,11 @@ import axios from 'axios';
 
 const Lists = () => {
   const accessToken = localStorage.getItem('accessToken');
+  const [selectedMovie, setSelectedMovie] = useState(undefined);
   const navigate = useNavigate();
   const [lists, setLists] = useState([]);
 
   const getMovies = () => {
-    // Fetch movies from the API or database
     axios.get('/movies').then((response) => {
       setLists(response.data);
     });
@@ -29,9 +29,9 @@ const Lists = () => {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
+          
         })
         .then(() => {
-          // Update the movie list array
           setLists((prevLists) => prevLists.filter((movie) => movie.id !== id));
         });
     }
@@ -41,53 +41,49 @@ const Lists = () => {
     <div className="lists-container">
       <div className="create-container">
         <button
-          className="button-list"
+          className="button-create"
           type="button"
-          onClick={() => {
-            navigate('/main/movies/form');
-          }}
+          onClick={() => navigate('/main/movies/form')}
         >
-          Create New
+          
+          + Add New Movie
         </button>
       </div>
-      <div className="table-container">
-        <table className="movie-lists">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Popularity</th>
-              <th>Release Date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {lists.map((movie) => (
-              <tr key={movie.id}>
-                <td>{movie.id}</td>
-                <td>{movie.title}</td>
-                <td>{movie.popularity}</td>
-                <td>{movie.dateCreated}</td>
-                <td>
-                  <button
-                    className="button-list"
-                    type="button"
-                    onClick={() => navigate(`/main/movies/form/${movie.id}`)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="button-list"
-                    type="button"
-                    onClick={() => handleDelete(movie.id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="movie-grid">
+        {lists.map((movie) => (
+          <div className="movie-card" key={movie.id}>
+            <img
+              className="movie-poster"
+              src={`https://image.tmdb.org/t/p/original/${movie.posterPath}`}
+              alt={`${movie.title} Poster`}
+            />
+            <div className="movie-details">
+              <h3 className="movie-title">{movie.title}</h3>
+              <p className="movie-info">
+                <span>Popularity:</span> {movie.popularity}
+              </p>
+              <p className="movie-info">
+                <span>Release Date:</span> {movie.dateCreated}
+              </p>
+            </div>
+            <div className="movie-actions">
+              <button
+                className="button-edit"
+                type="button"
+                onClick={() => navigate(`/main/movies/form/${movie.id}`)}
+              >
+                Edit
+              </button>
+              <button
+                className="button-delete"
+                type="button"
+                onClick={() => handleDelete(movie.id)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

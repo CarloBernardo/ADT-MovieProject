@@ -44,6 +44,7 @@ function VideoForm() {
     },
     [auth.accessToken]
   );
+  
 
   const getYouTubeVideoID = (url) => {
     if (!url || typeof url !== "string") {
@@ -120,7 +121,7 @@ function VideoForm() {
       return isUrlValid && isNameValid && isSiteValid && isVideoTypeValid;
     };
     if (!validateFields()) {
-      return; // This is for stop if any valid is null
+      return; 
     } else {
       try {
         const dataphoto = {
@@ -237,7 +238,7 @@ function VideoForm() {
     };
 
     if (!validateFields()) {
-      return; // This is for stop if any valid is null
+      return; 
     } else {
       const isConfirm = window.confirm(
         "Are you sure you want to update the Video?"

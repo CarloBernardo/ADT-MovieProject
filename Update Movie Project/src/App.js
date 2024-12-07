@@ -44,15 +44,15 @@ const router = createBrowserRouter([
             element: <Forms />,
             children: [
               {
-                path: '/main/movies/form/:movieId/cast',
+                path: '/main/movies/form/:movieId/cast/:tmdbId?',
                 element: <Casts />,
               },
               {
-                path: '/main/movies/form/:movieId/photos',
+                path: '/main/movies/form/:movieId/photos/:tmdbId?',
                 element: <Photos />,
               },
               {
-                path: '/main/movies/form/:movieId/videos',
+                path: '/main/movies/form/:movieId/videos/:tmdbId?',
                 element: <Videos />,
               },
             ],

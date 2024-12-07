@@ -136,7 +136,7 @@ function Photos() {
     };
 
     if (!validateFields()) {
-      return; // This is for stop if any valid is null
+      return; 
     } else {
       const isConfirm = window.confirm("Are you sure you want to update the Photo?");
       if (isConfirm) {

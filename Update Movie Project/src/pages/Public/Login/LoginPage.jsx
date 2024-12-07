@@ -88,7 +88,7 @@ function LoginPage() {
   return (
     <div className='login-page'>
       <form>
-        <div className='form-container'>
+        <div className='Lform-container'>
           <h1 className="form-title">MovieDB</h1>
           <h2 className="form-title">Welcome Back!</h2>
           {error && <span className='login errors'>{error}</span>}

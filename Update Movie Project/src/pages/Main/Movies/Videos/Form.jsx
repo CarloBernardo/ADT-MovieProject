@@ -10,7 +10,7 @@ function Form({ data, state, setState }) {
   let { tmdbId, movieId } = useParams();
 
   const [selectedData, setSelectedData] = useState(data);
-  const [file, setFile] = useState(null); // Use state to manage the file
+  const [file, setFile] = useState(null); 
   const urlRef = useRef();
   const descriptionRef = useRef();
 
@@ -20,7 +20,7 @@ function Form({ data, state, setState }) {
   const [debounceState, setDebounceState] = useState(false);
   const [isFieldsDirty, setIsFieldsDirty] = useState(false);
 
-  // alert box state
+ 
   const [alertMessage, setAlertMessage] = useState('');
   const [isError, setIsError] = useState(false);
 
@@ -28,11 +28,11 @@ function Form({ data, state, setState }) {
     setSelectedData(data);
   }, [data]);
 
-  // Handle file input change and set the file in state
+  
   const handleFileChange = (event) => {
     const uploadedFile = event.target.files[0];
-    setFile(uploadedFile);  // Update the file state
-    console.log(uploadedFile);  // This will log the file when it changes
+    setFile(uploadedFile);  
+    console.log(uploadedFile);  
   };
 
   const handleOnChange = (e) => {
@@ -49,7 +49,7 @@ function Form({ data, state, setState }) {
     
   };
 
-  //debounce
+  
     useEffect(() => {
       setDebounceState(true);
     }, [userInputDebounce]);
@@ -63,19 +63,13 @@ function Form({ data, state, setState }) {
 
       return `https://www.youtube.com/embed/${videoId}`;
     } else {
-      // Return the original URL if it doesn't match the pattern
+      
       return youtubeUrl;
     }
   }
 
   const handleSave = async (event) => {
-    //event.preventDefault();
-    // if (!file) {
-    //   setIsError(true);
-    //   setAlertMessage('No file selected');
-    //   setTimeout(() => setAlertMessage(''), 2000);
-    //   return;
-    // }
+    
 
     setStatus('loading')
 
@@ -83,7 +77,7 @@ function Form({ data, state, setState }) {
     formData.append('userId', selectedData.userId);
     formData.append('movieId', tmdbId);
     formData.append('description', selectedData.description);
-    // formData.append('video', file); // Use the state variable `file`
+   
     formData.append('url', convertToEmbedUrl(selectedData.url));
 
     const data = {
@@ -122,7 +116,7 @@ function Form({ data, state, setState }) {
   };
 
   const handleUpdate = async (event) => {
-    // event.preventDefault();
+   
 
     setStatus('loading')
 
@@ -257,9 +251,9 @@ function Form({ data, state, setState }) {
                   if (url && description) {
                     state === 'update' ? handleUpdate() : handleSave()
                   } else {
-                    //fields are incomplete
+                    
                     setIsFieldsDirty(true);
-                    //focus if field is empty
+                    
                     if (!url) {
                       urlRef.current.focus();
                     } else if (!description) {

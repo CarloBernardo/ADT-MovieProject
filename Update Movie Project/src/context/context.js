@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
       user: data.user,
     });
 
-    // Save to localStorage for persistence
+    
     localStorage.setItem('accessToken', data.accessToken);
     localStorage.setItem('user', JSON.stringify(data.user));
     localStorage.setItem('tab', JSON.stringify('cast'));
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     setMovie(null);
     setLists([]);
 
-    // Remove from localStorage
+    
     localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
     localStorage.removeItem('tab');

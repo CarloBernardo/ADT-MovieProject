@@ -14,11 +14,11 @@ body {
 /* Main Photo Box */
 .photo-box {
   background-color: #2a2a2a;
-  height: 100vh;
+  height: 850px;
   display: flex;
   border-radius: 8px;
   gap: 20px;
-  padding: 20px;
+  padding: 10px;
 }
 
 /* Photo View & Search Sections */
@@ -224,7 +224,7 @@ label {
   outline: none;
 }
 
-/* Buttons for Save, Edit, and Back */
+
 .save-edit-back-btn {
   display: flex;
   justify-content: center;

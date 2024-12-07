@@ -67,7 +67,7 @@ class AdminCastsController
                     break;
                 }
 
-                //file upload for cast image
+                
                 if (!empty($_FILES['image']['name']) && $type == 'form') {
                     $profile_path = $_FILES['image']['name'];
                     $temp_path = $_FILES['image']['tmp_name'];
@@ -131,7 +131,7 @@ class AdminCastsController
                 $type = $jsonData ? 'json' : 'form';
                 $errors = $this->getValidationErrors($data, true, $type  );
 
-                //file upload for cast image
+                
                 if (!empty($_FILES['profilePath']['name']) && $type == 'form') {
                     $profile_path = $_FILES['profilePath']['name'];
                     $temp_path = $_FILES['profilePath']['tmp_name'];

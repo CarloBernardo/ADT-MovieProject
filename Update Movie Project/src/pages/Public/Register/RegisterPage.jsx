@@ -92,7 +92,7 @@ function Register() {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault(); // Prevent the default form submission
+      event.preventDefault(); 
       if (status === 'idle') {
         handleRegister();
       }
@@ -103,11 +103,11 @@ function Register() {
     <div className='Register'>
       <div className='main-container'>
         <form onKeyDown={handleKeyDown}>
-          <div className='form-container'>
+          <div className='Rform-container'>
             <div>
             <h1>Register</h1>
             <div>
-              <div className='form-group'>
+              <div className='Rform-group'>
                 <label>First Name:</label>
                 <input
                   type='text'
@@ -119,7 +119,7 @@ function Register() {
               {debounceState && isFieldsDirty && firstName == ''}
             </div>
             <div>
-              <div className='form-group'>
+              <div className='Rform-group'>
                 <label>Middle Name:</label>
                 <input
                   type='text'
@@ -131,7 +131,7 @@ function Register() {
               {debounceState && isFieldsDirty && middleName == ''}
             </div>
             <div>
-              <div className='form-group'>
+              <div className='Rform-group'>
                 <label>Last Name:</label>
                 <input
                   type='text'
@@ -143,7 +143,7 @@ function Register() {
               {debounceState && isFieldsDirty && lastName == ''}
             </div>
             <div>
-              <div className='form-group'>
+              <div className='Rform-group'>
                 <label>Contact Number:</label>
                 <input
                   type='text'
@@ -155,7 +155,7 @@ function Register() {
               {debounceState && isFieldsDirty && contactNo == ''}
             </div>
             <div>
-              <div className='form-group'>
+              <div className='Rform-group'>
                 <label>Role:</label>
                 <input
                   type='text'
@@ -166,7 +166,7 @@ function Register() {
               </div>
               {debounceState && isFieldsDirty && role == ''}
             </div>
-              <div className='form-group'>
+              <div className='Rform-group'>
                 <label>Email:</label>
                 <input
                   type='text'
@@ -178,7 +178,7 @@ function Register() {
               {debounceState && isFieldsDirty && email == ''}
               </div>
             <div>
-              <div className='form-group'>
+              <div className='Rform-group'>
                 <label>Password:</label>
                 <input
                   type={isShowPassword ? 'text' : 'password'}

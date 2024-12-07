@@ -10,7 +10,7 @@ function Form({ data, state, setState }) {
   let { tmdbId, movieId } = useParams();
 
   const [selectedData, setSelectedData] = useState(data);
-  const [file, setFile] = useState(null); // Use state to manage the file
+  const [file, setFile] = useState(null); 
   const fileRef = useRef();
   const descriptionRef = useRef();
   const urlRef = useRef();
@@ -21,7 +21,7 @@ function Form({ data, state, setState }) {
   const [debounceState, setDebounceState] = useState(false);
   const [isFieldsDirty, setIsFieldsDirty] = useState(false);
 
-  // alert box state
+  
   const [alertMessage, setAlertMessage] = useState('');
   const [isError, setIsError] = useState(false);
 
@@ -29,11 +29,11 @@ function Form({ data, state, setState }) {
     setSelectedData(data);
   }, [data]);
 
-  // Handle file input change and set the file in state
+ 
   const handleFileChange = (event) => {
     const uploadedFile = event.target.files[0];
-    setFile(uploadedFile);  // Update the file state
-    console.log(uploadedFile);  // This will log the file when it changes
+    setFile(uploadedFile);  
+    console.log(uploadedFile); 
   };
 
   const handleOnChange = (e) => {
@@ -49,7 +49,7 @@ function Form({ data, state, setState }) {
     console.log(selectedData);
   };
 
-  //debounce
+  
     useEffect(() => {
       setDebounceState(true);
     }, [userInputDebounce]);
@@ -59,7 +59,6 @@ function Form({ data, state, setState }) {
     formData.append('userId', selectedData.userId);
     formData.append('movieId', tmdbId);
     formData.append('description', selectedData.description);
-    // formData.append('image', file); // Use the state variable `file`
     formData.append('url', selectedData.url)
 
     const data = {
@@ -102,7 +101,6 @@ function Form({ data, state, setState }) {
     formData.append('userId', selectedData.userId);
     formData.append('movieId', tmdbId);
     formData.append('description', selectedData.description);
-    // formData.append('image', file);
     formData.append('url', selectedData.url);
 
     const data = {
@@ -189,13 +187,11 @@ function Form({ data, state, setState }) {
                 ref={urlRef}
                 onChange={handleOnChange}
                 value={selectedData.url}
-                // id='file-upload'
-                // hidden
+                
               />
-              {/* <label htmlFor="file-upload" id='upload-label'>Choose File</label> */}
+              
               {debounceState && isFieldsDirty && (selectedData.url === '') && (<span className='errors'>This field is required</span>)}
-              {/* {file && <span id='file-name-container'><p id='file-name'>{file.name}</p><span className='fas fa-circle-xmark remove-btn' onClick={() => setFile('')}></span>  */}
-              {/* </span>} */}
+              
               </div>
             <div className="field">
               Description
@@ -233,9 +229,9 @@ function Form({ data, state, setState }) {
                   if (url && description) {
                     state === 'update' ? handleUpdate() : handleSave()
                   } else {
-                    //fields are incomplete
+                    
                     setIsFieldsDirty(true);
-                    //focus if field is empty
+                    
                     if (!url) {
                       urlRef.current.focus();
                     } else if (!description) {
