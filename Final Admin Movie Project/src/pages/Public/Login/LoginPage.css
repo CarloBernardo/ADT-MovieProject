@@ -1,0 +1,99 @@
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("C:\Users\Carlo\Documents\admin-dashboard-carlo-bernardo-bsit3a\public\download (1).jpg"); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  font-family: Arial, sans-serif;
+}
+
+.Lform-container {
+  width: 100%;
+  max-width: 1000px;
+  padding: 50px 100px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgb(243, 241, 241);
+}
+
+.form-title {
+  text-align: center;
+  margin: 0 0 15px;
+  
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+
+.input-group input {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-group input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.input-field {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.show-password-btn {
+  cursor: pointer;
+  color: #007bff;
+  text-align: center;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.submit-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submit-container button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.register-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.register-container a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+

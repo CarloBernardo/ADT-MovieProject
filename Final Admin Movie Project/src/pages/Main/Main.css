@@ -1,0 +1,81 @@
+.Main {
+  display: flex;
+  overflow: hidden;
+  max-height: 100vh;
+  background-image: url("C:\Users\Carlo\Documents\admin-dashboard-carlo-bernardo-bsit3a\public\download (1).jpg"); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  font-family: Arial, sans-serif;
+}
+
+.Main .container {
+  display: flex;
+  width: 100vw;
+}
+
+.Main .container .outlet {
+  flex-grow: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.navigation {
+  background-color: #f8f9fa00;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0);
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start; 
+  height: 100px; 
+}
+
+.navigation ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-end;
+  margin: 0;
+  padding: 0;
+  gap: 10px;
+}
+
+.navigation li {
+  margin-left: 0;
+  width: 100%;
+}
+
+.nav-button {
+  width: 150px; 
+  padding: 8px 15px;
+  border: 2px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+.home-button {
+  border-color: #fcfcfd;
+  color: #fcfcfc;
+  background-color: #007bff;
+}
+
+.home-button:hover {
+  background-color: #0056b3;
+}
+
+.logout-button {
+  border-color: #fafafa;
+  color: #ffffff;
+  background-color: #dc3545;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
+}
+
+.nav-icon {
+  margin-right: 8px;
+}

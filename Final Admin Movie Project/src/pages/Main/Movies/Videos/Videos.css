@@ -1,0 +1,231 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+
+.video-box {
+  display: flex;
+  height: 90vh;
+  padding: 15px;
+  gap: 15px;
+  background-color: #ffffff;
+}
+
+
+.Video-View-Box {
+  flex: 3;
+  background-color: #f0f8e0;
+  border-radius: 10px;
+  padding: 15px;
+  overflow-y: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.Video-Search-Box {
+  flex: 1;
+  background-color: #fffde7;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  
+}
+
+
+.video-search-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #333;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.video-search-input:focus {
+  box-shadow: 0 0 6px #a0d468;
+  outline: none;
+}
+
+.video-search-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+button {
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.search-btn {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.search-btn:hover {
+  background-color: #ffb300;
+  transform: scale(1.05);
+}
+
+.save-btn {
+  background-color: #8bc34a;
+  color: #ffffff;
+}
+
+.save-btn:hover {
+  background-color: #7cb342;
+  transform: scale(1.05);
+}
+
+
+.card-display-videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.card-video {
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-video:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-video img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-bottom: 2px solid #a0d468;
+}
+
+.container-video {
+  padding: 10px;
+  text-align: center;
+}
+
+.container-video h4 {
+  font-size: 18px;
+  color: #8bc34a;
+}
+
+.container-video p {
+  font-size: 13px;
+  color: #666;
+}
+
+
+.buttons-group {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 1px;
+}
+
+.edit-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #43a047;
+  transform: scale(1.05);
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #e53935;
+  transform: scale(1.05);
+}
+
+
+.video-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 1px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+input,
+.select-input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #333;
+  transition: box-shadow 0.3s ease;
+}
+
+input:focus {
+  box-shadow: 0 0 6px #a0d468;
+  outline: none;
+}
+
+
+.save-edit-back-btn {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 1px;
+}
+
+.clear-btn {
+  background-color: #ffc107;
+  color: black;
+}
+
+.clear-btn:hover {
+  background-color: #ffb300;
+  transform: scale(1.05);
+}
+
+.edit-save-btn {
+  background-color: #8bc34a;
+  color: white;
+}
+
+.edit-save-btn:hover {
+  background-color: #7cb342;
+  transform: scale(1.05);
+}
+
+.parent-container {
+  height: 100vh;
+}

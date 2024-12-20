@@ -1,0 +1,55 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("C:\Users\Carlo\Documents\admin-dashboard-carlo-bernardo-bsit3a\public\download (1).jpg"); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  font-family: Arial, sans-serif;
+    
+  }
+  
+  .Rform-container {
+    padding: 15px 100px;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #f7f4f4;
+  }
+  .Rform-container > div {
+    margin-bottom: 1px;
+  }
+  
+  .Rform-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1px;
+  }
+  
+  .Rform-group label {
+    width: 130px;
+    margin-right: 10px;
+    text-align: left;
+  }
+  .errors {
+    color: red;
+    font-size: 12px;
+  }
+  .submit-container {
+    margin-top: 12px;
+    text-align: center;
+  }
+  .register-container {
+    text-align: center;
+  }
+  .show-password {
+    margin-bottom: 1px;
+    cursor: pointer;
+    font-size: 13px;
+    color: rgb(0, 94, 255);
+  }
